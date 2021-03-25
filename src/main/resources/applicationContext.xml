@@ -9,8 +9,36 @@
        http://www.springframework.org/schema/context/spring-context.xsd">
     <!--组件扫描-->
     <context:component-scan base-package="cn.wwn"> </context:component-scan>
+    <!--<bean class="cn.wwn.test.intf.impl.HelloImpl"></bean>-->
     <bean id="hello" class="cn.wwn.test.intf.impl.HelloImpl"> </bean>
+    <!--构造器实例化配置-->
     <bean id="hello2" class="cn.wwn.test.intf.impl.HelloImpl2">
-        <constructor-arg index="0" value="HelloWWN"> </constructor-arg>
+        <constructor-arg index="0" value="Hello,NMSL"> </constructor-arg>
+    </bean>
+    <!--静态工厂实例化配置-->
+    <bean id="hello3" class="cn.wwn.test.factory.HelloApiStaticFactory" factory-method="newinstance">
+        <constructor-arg index="0" value="Hello,WSND"/>
+    </bean>
+    <!--实例工厂实例化配置-->
+    <bean id="beanInstanceFactory" class="cn.wwn.test.factory.HelloApiStaticFactory"/>
+    <bean id="hello4" factory-bean="beanInstanceFactory" factory-method="newinstance1">
+        <constructor-arg index="0" value="Hello,SBWY"/>
+    </bean>
+
+    <!--构造器依赖注入-->
+    <bean id="hello5" class="cn.wwn.test.intf.impl.HelloImpl3">
+        <!--<constructor-arg index="0" value="看那边"/>
+        <constructor-arg index="1" value="4"/>-->
+
+        <!--<constructor-arg name="message" value="看天"/>
+        <constructor-arg name="number" value="3"/>-->
+
+        <constructor-arg type="java.lang.String" value="看楼上"/>
+        <constructor-arg type="int" value="5"/>
+    </bean>
+    <!--setter依赖注入需要现在类里写set方法-->
+    <bean id="hello6" class="cn.wwn.test.intf.impl.HelloImpl3">
+        <property name="message" value="看"/>
+        <property name="number" value="3"/>
     </bean>
 </beans>
